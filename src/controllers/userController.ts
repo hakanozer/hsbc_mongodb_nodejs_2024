@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IUser } from "../models/userModel";
-import { createUser } from "../services/userService";
+import { createUser, loginUser } from "../services/userService";
 
 
 export const saveUser = async ( req: Request, res: Response ) => {
@@ -15,5 +15,23 @@ export const saveUser = async ( req: Request, res: Response ) => {
             message: error
         }
         res.status(500).json(errorObject)
+    }
+}
+
+export const userLogin = async ( req: Request, res: Response ) => {
+    const email = req.body.email
+    const password = req.body.password
+    const user = await loginUser(email, password)
+    try {
+        if (user) {
+            const u = user as IUser
+            if (u.uid) {
+                res.status(200).json(u)
+            }else {
+                res.status(400).json(user)
+            }
+        }
+    } catch (error) {
+        res.status(400).json(user)
     }
 }

@@ -16,6 +16,6 @@ const UserSchema: Schema = new Schema({
     date: { type: Date }
 })
 
-const User = mongoose.model('User', UserSchema)
+const User = mongoose.model<IUser>('User', UserSchema)
 
 export default User
