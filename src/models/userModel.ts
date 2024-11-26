@@ -9,10 +9,10 @@ export interface IUser extends Document {
 }
 
 const UserSchema: Schema = new Schema({
-    uid: { type: Number, require: true },
-    name: { type: String, require: true },
-    email: { type: String, require: true, unique: true },
-    password: { type: String, require: true },
+    uid: { type: Number, required: true },
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
     date: { type: Date }
 })
 
