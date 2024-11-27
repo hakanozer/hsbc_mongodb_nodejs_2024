@@ -31,5 +31,5 @@ export const saveUserAll = async ( userArr: IUser[] ) => {
         user.password = newPass
         user.date = new Date()
     }
-    return userArr
+    return await User.insertMany(userArr)
 }
