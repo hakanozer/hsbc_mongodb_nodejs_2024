@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IUser } from "../models/userModel";
-import { allUser, createUser, deleteUser, loginUser, saveUserAll, updateUser } from "../services/userService";
+import { allUser, createUser, dateSelect, deleteUser, loginUser, saveUserAll, updateUser } from "../services/userService";
 import url from 'url'
 
 export const saveUser = async ( req: Request, res: Response ) => {
@@ -93,5 +93,14 @@ export const userDelete = async ( req: Request, res: Response ) => {
 
 export const userAll = async ( req: Request, res: Response ) => {
     const users = await allUser()
+    res.status(200).json(users)
+}
+
+
+// 2 tarih aralığındaki dataları getir
+export const userDateSelect = async ( req: Request, res: Response ) => {
+    const gteDate = req.body.gte
+    const lteDate = req.body.lte
+    const users = await dateSelect(gteDate, lteDate)
     res.status(200).json(users)
 }

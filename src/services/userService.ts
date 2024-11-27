@@ -56,3 +56,10 @@ export const allUser = async () => {
     const users = await User.find()
     return users
 }
+
+export const dateSelect = async ( startDate: Date, endDate: Date ) => {
+    const users = await User.find({
+        date: { $gte: startDate, $lte: endDate }
+    })
+    return users
+}
