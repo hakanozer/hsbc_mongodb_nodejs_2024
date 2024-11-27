@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IUser } from "../models/userModel";
-import { createUser, loginUser } from "../services/userService";
+import { createUser, loginUser, saveUserAll } from "../services/userService";
 
 
 export const saveUser = async ( req: Request, res: Response ) => {
@@ -39,7 +39,8 @@ export const userLogin = async ( req: Request, res: Response ) => {
 export const saveAllUser = async ( req: Request, res: Response ) => {
     try {
         const userArr = req.body as IUser[]
-        res.status(200).json(userArr)
+        const newArr = await saveUserAll(userArr)
+        res.status(200).json(newArr)
     } catch (error) {
         const errorObject = {
             status: false,

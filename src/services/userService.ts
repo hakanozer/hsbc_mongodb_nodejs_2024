@@ -23,3 +23,13 @@ export const loginUser = async ( email: string, password: string ) => {
     }
     return {email, password}
 }
+
+export const saveUserAll = async ( userArr: IUser[] ) => {
+    for (let i = 0; i < userArr.length; i++) {
+        const user = userArr[i];
+        const newPass = await bcrypt.hash(user.password, 10)
+        user.password = newPass
+        user.date = new Date()
+    }
+    return userArr
+}
