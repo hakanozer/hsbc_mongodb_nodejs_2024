@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IUser } from "../models/userModel";
-import { allUser, createUser, dateSelect, deleteUser, loginUser, saveUserAll, updateUser } from "../services/userService";
+import { allUser, createUser, dateSelect, deleteUser, loginUser, saveUserAll, search, updateUser } from "../services/userService";
 import url from 'url'
 
 export const saveUser = async ( req: Request, res: Response ) => {
@@ -103,4 +103,24 @@ export const userDateSelect = async ( req: Request, res: Response ) => {
     const lteDate = req.body.lte
     const users = await dateSelect(gteDate, lteDate)
     res.status(200).json(users)
+}
+
+
+export const userSearch = async ( req: Request, res: Response ) => {
+    const params = url.parse(req.url, true)
+    const searchTerm = params.query.searchTerm
+    const skip = params.query.skip
+    if (searchTerm) {
+        let term = searchTerm as string
+        term = term.trim()
+        if (term.length > 1) {
+            const users = await search(term, Number(skip))
+            res.status(200).json(users)
+        }else {
+            res.status(400).json({"message": "Char length problem min 2 : "+term })
+        }
+
+    }else {
+        res.status(400).json({"message": "searchTerm not null!"})
+    }
 }

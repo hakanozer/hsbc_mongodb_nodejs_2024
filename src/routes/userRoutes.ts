@@ -6,6 +6,7 @@ import {
     userDateSelect, 
     userDelete, 
     userLogin, 
+    userSearch, 
     userUpdate 
 } from "../controllers/userController"
 
@@ -18,5 +19,6 @@ userRouter.put('/update', userUpdate)
 userRouter.delete('/delete', userDelete)
 userRouter.get('/allUser', userAll)
 userRouter.post('/userDate', userDateSelect)
+userRouter.get('/search', userSearch)
 
 export default userRouter

@@ -63,3 +63,23 @@ export const dateSelect = async ( startDate: Date, endDate: Date ) => {
     })
     return users
 }
+
+export const search = async ( searchTerm: string, skip: number ) => {
+
+    const query = {
+        $or: [
+            { name: { $regex: searchTerm, $options: 'i' } },
+            { email: { $regex: searchTerm, $options: 'i' } },
+        ],
+        $and: [
+            { uid: { $lte: 90000 } }
+        ]
+    }
+    const userArr = await User.find(query)
+    .skip(skip)
+    .limit(10)
+
+    const userCount = await User.countDocuments(query)
+
+    return {count: userCount, result: userArr}
+}
