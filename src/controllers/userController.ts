@@ -35,3 +35,16 @@ export const userLogin = async ( req: Request, res: Response ) => {
         res.status(400).json(user)
     }
 }
+
+export const saveAllUser = async ( req: Request, res: Response ) => {
+    try {
+        const userArr = req.body as IUser[]
+        res.status(200).json(userArr)
+    } catch (error) {
+        const errorObject = {
+            status: false,
+            message: error
+        }
+        res.status(500).json(errorObject)
+    }
+}
