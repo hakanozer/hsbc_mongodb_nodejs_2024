@@ -33,3 +33,13 @@ export const saveUserAll = async ( userArr: IUser[] ) => {
     }
     return await User.insertMany(userArr)
 }
+
+export const updateUser = async (user: IUser) => {
+    const updateUser = await User.findOneAndUpdate(
+        { _id: user._id },
+        //{ $set: { uid: user.uid, name: user.name, email: user.email } },
+        { $set: user },
+        { new: true }
+    )
+    return updateUser
+}

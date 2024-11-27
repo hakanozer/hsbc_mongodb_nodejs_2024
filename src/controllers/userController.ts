@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IUser } from "../models/userModel";
-import { createUser, loginUser, saveUserAll } from "../services/userService";
+import { createUser, loginUser, saveUserAll, updateUser } from "../services/userService";
 
 
 export const saveUser = async ( req: Request, res: Response ) => {
@@ -41,6 +41,20 @@ export const saveAllUser = async ( req: Request, res: Response ) => {
         const userArr = req.body as IUser[]
         const newArr = await saveUserAll(userArr)
         res.status(200).json(newArr)
+    } catch (error) {
+        const errorObject = {
+            status: false,
+            message: error
+        }
+        res.status(500).json(errorObject)
+    }
+}
+
+export const userUpdate = async ( req: Request, res: Response ) => {
+    try {
+        const user = req.body as IUser
+        const updateObj = await updateUser(user)
+        res.status(200).json(updateObj)
     } catch (error) {
         const errorObject = {
             status: false,
