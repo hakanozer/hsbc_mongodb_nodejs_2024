@@ -43,3 +43,16 @@ export const updateUser = async (user: IUser) => {
     )
     return updateUser
 }
+
+export const deleteUser = async (_id: string) => {
+    const deleteUser = await User.findOneAndDelete({ _id: _id })
+    if (deleteUser) {
+        return deleteUser
+    }
+    return null
+}
+
+export const allUser = async () => {
+    const users = await User.find()
+    return users
+}

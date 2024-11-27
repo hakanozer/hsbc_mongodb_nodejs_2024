@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { IUser } from "../models/userModel";
-import { createUser, loginUser, saveUserAll, updateUser } from "../services/userService";
-
+import { allUser, createUser, deleteUser, loginUser, saveUserAll, updateUser } from "../services/userService";
+import url from 'url'
 
 export const saveUser = async ( req: Request, res: Response ) => {
     try {
@@ -62,4 +62,36 @@ export const userUpdate = async ( req: Request, res: Response ) => {
         }
         res.status(500).json(errorObject)
     }
+}
+
+// http://localhost:4000/api/users/delete?_id=6746d2ecde73ef8d442fe965
+export const userDelete = async ( req: Request, res: Response ) => {
+    //const parse = url.parse(req.url, true)
+    //const iid = parse.query._id
+    const _id = req.body._id
+    try {
+        const deleteObj = await deleteUser(_id)
+        if (deleteObj) {
+            res.status(200).json(deleteObj)
+        }else {
+            const errorObject = {
+                status: false,
+                message: "Delete Fail: _id:" + _id
+            }
+            res.status(400).json(errorObject)
+        }
+    } catch (error) {
+        const errorObject = {
+            status: false,
+            message: error
+        }
+        res.status(400).json(errorObject)
+    }
+
+}
+
+
+export const userAll = async ( req: Request, res: Response ) => {
+    const users = await allUser()
+    res.status(200).json(users)
 }
