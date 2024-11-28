@@ -1,3 +1,4 @@
+import { searchModel } from '../models/searchModel'
 import User, { IUser } from '../models/userModel'
 import bcrypt from 'bcrypt'
 
@@ -102,5 +103,34 @@ export const report = async () => {
             $limit: 5
         }
     ])
+    return result
+}
+
+
+export const dynamicQuery = async (filters: searchModel) => {
+    const query:any = {}
+
+    if (filters.uid) {
+        query.uid = 
+        {
+            $or: [
+                { uid: { $gte: filters.uid } },
+            ]
+        }
+    }
+
+    if (filters.email){
+        query.email = filters.email
+    }
+
+    if (filters.name) {
+        query.name = {
+                $or: [
+                { name: { $regex: filters.name, $options: 'i' } },
+            ]
+        }
+    }
+
+    const result = await User.find( query.name ? query.name : '' + query.email ? query.email : '' + query.uid ? query.uid : '' )
     return result
 }

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IUser } from "../models/userModel";
-import { allUser, createUser, dateSelect, deleteUser, loginUser, report, saveUserAll, search, updateUser } from "../services/userService";
+import { allUser, createUser, dateSelect, deleteUser, dynamicQuery, loginUser, report, saveUserAll, search, updateUser } from "../services/userService";
 import url from 'url'
 
 export const saveUser = async ( req: Request, res: Response ) => {
@@ -128,5 +128,10 @@ export const userSearch = async ( req: Request, res: Response ) => {
 
 export const reportUser = async ( req: Request, res: Response ) => {
     const result = await report()
+    res.status(200).json(result)
+}
+
+export const queryDynamic = async ( req: Request, res: Response ) => {
+    const result = await dynamicQuery(req.body)
     res.status(200).json(result)
 }

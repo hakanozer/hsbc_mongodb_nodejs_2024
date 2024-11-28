@@ -1,5 +1,6 @@
 import express from "express"
 import { 
+    queryDynamic,
     reportUser,
     saveAllUser, 
     saveUser, 
@@ -22,5 +23,6 @@ userRouter.get('/allUser', userAll)
 userRouter.post('/userDate', userDateSelect)
 userRouter.get('/search', userSearch)
 userRouter.get('/report', reportUser)
+userRouter.post('/dynamicQuery', queryDynamic)
 
 export default userRouter
