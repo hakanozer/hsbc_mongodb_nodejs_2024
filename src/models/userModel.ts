@@ -8,7 +8,7 @@ export interface IUser extends Document {
     date?: Date
 }
 
-const UserSchema: Schema = new Schema({
+const UserSchema: Schema<IUser> = new Schema({
     uid: { type: Number, required: true },
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
