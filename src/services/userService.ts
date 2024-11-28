@@ -89,11 +89,14 @@ export const report = async () => {
         {
           $group: {
             _id: "$email",
-            totalUid: { $sum: "$uid" }
+            totalUid: { $sum: "$uid" },
           }  
         },
         {
             $sort: { totalUid: -1 }
+        },
+        {
+            $skip: 0
         },
         {
             $limit: 5
