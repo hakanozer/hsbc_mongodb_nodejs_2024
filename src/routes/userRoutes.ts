@@ -1,5 +1,6 @@
 import express from "express"
 import { 
+    reportUser,
     saveAllUser, 
     saveUser, 
     userAll, 
@@ -20,5 +21,6 @@ userRouter.delete('/delete', userDelete)
 userRouter.get('/allUser', userAll)
 userRouter.post('/userDate', userDateSelect)
 userRouter.get('/search', userSearch)
+userRouter.get('/report', reportUser)
 
 export default userRouter

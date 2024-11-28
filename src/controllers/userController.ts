@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { IUser } from "../models/userModel";
-import { allUser, createUser, dateSelect, deleteUser, loginUser, saveUserAll, search, updateUser } from "../services/userService";
+import { allUser, createUser, dateSelect, deleteUser, loginUser, report, saveUserAll, search, updateUser } from "../services/userService";
 import url from 'url'
 
 export const saveUser = async ( req: Request, res: Response ) => {
@@ -123,4 +123,10 @@ export const userSearch = async ( req: Request, res: Response ) => {
     }else {
         res.status(400).json({"message": "searchTerm not null!"})
     }
+}
+
+
+export const reportUser = async ( req: Request, res: Response ) => {
+    const result = await report()
+    res.status(200).json(result)
 }

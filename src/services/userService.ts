@@ -83,3 +83,21 @@ export const search = async ( searchTerm: string, skip: number ) => {
 
     return {count: userCount, result: userArr}
 }
+
+export const report = async () => {
+    const result = await User.aggregate([
+        {
+          $group: {
+            _id: "$email",
+            totalUid: { $sum: "$uid" }
+          }  
+        },
+        {
+            $sort: { totalUid: -1 }
+        },
+        {
+            $limit: 5
+        }
+    ])
+    return result
+}
