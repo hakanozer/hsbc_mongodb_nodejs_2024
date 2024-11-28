@@ -19,7 +19,7 @@ export interface IOrder extends Document {
     userId: {type: Number, required: true},
     name: {type: String, required: true},
     date: {type: Date, default: Date.now},
-    products: {type: Array<Product> , required: true },
+    products: {type: Array<Product>, required: true },
   })
 
  const Order = mongoose.model<IOrder>('Order', OrderSchema)
